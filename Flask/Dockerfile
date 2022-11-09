@@ -1,5 +1,5 @@
 FROM python:slim
-COPY ./Flask ./app
+COPY . ./app
 WORKDIR /app
 RUN chmod 755 main.py
 RUN ls -la
