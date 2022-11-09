@@ -24,10 +24,10 @@ pipeline{
                 }
             }
             steps{
-                sh "docker-compose up --build -d"
+                sh "docker-compose up --build --env-file ./Config/dev.env -d"
             }
         }
-        
+
         stage('Test'){
             when{
                 anyOf{
@@ -35,7 +35,7 @@ pipeline{
                 }
             }
             steps{
-                sh "curl -i localhost:80 | grep 200"
+                sh "curl -i localhost:5001 | grep 200"
             }
         }
         // stage('Create image'){
