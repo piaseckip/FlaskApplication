@@ -4,8 +4,8 @@ from pymongo import MongoClient
 import os
 
 views = Blueprint('views',__name__)
-
-client = MongoClient('mongodb://root:pass@mongo-mongodb-headless:27017/')
+MONGODB_URI = os.environ.get("MONGODB_URI")
+client = MongoClient(str(MONGODB_URI))
 db = client.flask_db
 techs = db.techs
 

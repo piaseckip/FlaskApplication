@@ -6,8 +6,8 @@ services:
       context: Flask/.
     image: 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest
     container_name: flask
-    # ports:
-    # - 5000:5000
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/
     networks:
       - public
       - private
