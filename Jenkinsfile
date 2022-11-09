@@ -24,7 +24,7 @@ pipeline{
                 }
             }
             steps{
-                sh "docker-compose up --build --env-file ./Config/dev.env -d"
+                sh "docker-compose --build --env-file ./Config/dev.env -d up"
             }
         }
 
