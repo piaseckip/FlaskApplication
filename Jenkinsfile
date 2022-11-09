@@ -30,11 +30,10 @@ pipeline{
             when{
                 anyOf{
                     branch "master"
-                    sh "curl -i localhost:80 | grep 200"
                 }
             }
             steps{
-
+                sh "curl -i localhost:80 | grep 200"
             }
         }
         // stage('Create image'){
