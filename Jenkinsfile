@@ -5,6 +5,7 @@ pipeline{
     agent any
 
     stages{
+
         stage('Checkout'){
             steps{
                 deleteDir()
@@ -26,7 +27,8 @@ pipeline{
                 sh "docker-compose up --build -d"
             }
         }
-         stage('Test'){
+        
+        stage('Test'){
             when{
                 anyOf{
                     branch "master"
