@@ -25,6 +25,9 @@ services:
     container_name: nginx
     ports:
     - 5001:80
+    environment:
+      BACKEND: flask
+    command: /bin/sh -c "export BACKEND && envsubst '$${BACKEND}' < /etc/nginx/templates/nginx.conf.template > /etc/nginx/nginx.conf && exec nginx -g 'daemon off;'"
     networks:
       - public
     depends_on:
