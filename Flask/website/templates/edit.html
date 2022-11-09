@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title%} Edit {% endblock%}
+{% block content%}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Edit existing element</h1>
+      <p class="lead">Here in form below, you can add edit element from your stack!</p>
+    </div>
+  </div>
+<form style="margin:0 auto; width:500px;" method="post">
+    <div class="form-group" style="margin:0 auto;">
+      <label for="delete_tech">Name of technology</label>
+      <input type="text" class="form-control" name="tech_name" placeholder="Enter name of technology">
+    </div>
+</br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock%}

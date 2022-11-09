@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title%} Home Page {% endblock%}
+{% block content%}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Welcome to my Portfolio!</h1>
+    <p class="lead">Here u can check the tech stack which im using!</p>
+  </div>
+</div>
+
+</br>
+<table style="margin-left:auto;margin-right:auto;">
+  {% for row in range(0,rc) %}
+  <tr>
+    {% if ec == 0 %}
+    <td>
+      <div class="card" style="width: 18rem;margin:0 auto;">
+        <img src="https://www.kindpng.com/picc/m/112-1120914_plus-sign-icon-png-plus-icon-png-transparent.png" class="card-img-top" alt="...">
+        <div class="card-body">
+          <h5 class="card-title">Stack is empty. Add something!</h5>
+          <p class="card-text">Add something to your technology stack!</p>
+          <a href="{{ url_for('views.adding') }}" class="btn btn-primary">Add</a>
+        </div>
+    </td>
+    {% endif %}
+    {% for col in range(1,cc+1) %}
+    {% if ((row)*4)+col-1 >= ec %}
+    {{ pass }}
+    {% else %}
+    <td>
+        <div class="card" style="width: 18rem;">
+          <img src="{{data[((row)*4)+col-1]["link"]}}" class="card-img-top" alt="..." width="256" height="256">
+          <div class="card-body">
+            <h5 class="card-title">{{data[((row)*4)+col-1]["name"]}}</h5>
+            <a href="{{ url_for('views.tech', h=data[((row)*4)+col-1]["name"],des=data[((row)*4)+col-1]["descr"], img=data[((row)*4)+col-1]["link"])}}" class="btn btn-primary">More details</a>
+        </div>
+    </td>
+    {% endif %}
+    {% endfor %}
+  </tr>
+  {% endfor %}
+</table>
+  
+  
+{% endblock%}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title%} {{ h }} {% endblock%}
+{% block content%}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <div class="row">
+            <div class="column" id="col" style="margin: 0 auto; text-align: center;margin-top: auto;margin-bottom: auto"><h1 class="display-4">{{ h }}</h1></div>
+            <div class="column" id="col" style="margin: 0 auto; text-align: center;margin-top: auto;margin-bottom: auto"><img src="{{ img }}" class="d-block" alt="Tech_image" style="width:256px;height:256px;margin: 0 auto;"></div>
+        </div>
+    </div>
+</div>
+</br>
+<pre id="text">{{ des }}</pre>
+</br>
+</br>
+<div style="margin: 0 auto; text-align: center">
+    <a class="btn btn-primary" href="{{ url_for('views.home') }}" role="button" style="margin-left:auto;margin-right:auto;">Go to Homepage</a>
+</div>
+{% endblock%}

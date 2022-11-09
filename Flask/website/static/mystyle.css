@@ -1,0 +1,23 @@
+img {
+    border-radius: 8px;
+}
+
+.column {
+    float: left;
+    width: 50%;
+  }
+  
+  /* Clear floats after the columns */
+  .row:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+
+  #text {
+    margin: 0 auto;
+    text-align: center; 
+    font-family:Sans-serif;
+    font-size: 20px
+  }
+  

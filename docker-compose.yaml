@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  flask:
+    build:
+      context: Flask/.
+    container_name: flask
+    # ports:
+    # - 5000:5000
+    networks:
+      - public
+      - private
+    depends_on:
+      - mongodb
+  mongodb:
+    container_name: mongodb
+    image: mongo
+    networks:
+      - private
+  nginx:
+    build:
+      context: Nginx/.
+    container_name: nginx
+    ports:
+    - 80:80
+    networks:
+      - public
+    depends_on:
+      - flask
+networks:
+  public:
+  private:

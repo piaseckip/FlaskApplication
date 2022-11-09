@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title%} Edit element {% endblock%}
+{% block content%}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Edit element: {{ name }}</h1>
+      <p class="lead">Here in form below, you can edit element in your stack!</p>
+    </div>
+  </div>
+<form style="margin:0 auto; width:500px;" method="post">
+    <div class="form-group" style="margin:0 auto;">
+      <label for="input_tech_name">Name of technology</label>
+      <input type="text" class="form-control" name="name" value="{{ name }}">
+    </div>
+</br>
+    <div class="form-group" style="margin:0 auto;">
+      <label for="floatingTextarea2">Describe technology</label>
+      <textarea class="form-control" name="descr" placeholder="Describe technology here" id="floatingTextarea2" style="height: 100px">{{ descr }}</textarea>
+    </div>
+</br>
+    <div class="form-group" style="margin:0 auto;">
+        <label for="input_image_link">Link to technology image</label>
+        <input type="text" class="form-control" name="link" value="{{ link }}">
+    </div>
+</br>
+    <input type="hidden" name="id" value="{{ id }}" />
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock%}

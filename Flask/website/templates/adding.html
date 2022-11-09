@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title%} Add new element {% endblock%}
+{% block content%}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">Add new element</h1>
+      <p class="lead">Here in form below, you can add new element to your stack!</p>
+    </div>
+  </div>
+<form style="margin:0 auto; width:500px;" method="post">
+    <div class="form-group" style="margin:0 auto;">
+      <label for="input_tech_name">Name of technology</label>
+      <input type="text" class="form-control" name="tech_name" placeholder="Enter name of technology">
+    </div>
+</br>
+    <div class="form-group" style="margin:0 auto;">
+      <label for="floatingTextarea2">Describe technology</label>
+      <textarea class="form-control" name="tech_descr" placeholder="Describe technology here" id="floatingTextarea2" style="height: 100px"></textarea>
+    </div>
+</br>
+    <div class="form-group" style="margin:0 auto;">
+        <label for="input_image_link">Link to technology image</label>
+        <input type="text" class="form-control" name="image_link" placeholder="Input image link">
+    </div>
+</br>
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock%}

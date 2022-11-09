@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% block title%} {{ t }} {% endblock%}
+{% block content%}
+<div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-4">{{ h }}</h1>
+      <p class="lead">{{ p }}</p>
+    </div>
+  </div>
+</br>
+<div style="margin: 0 auto; text-align: center">
+<a class="btn btn-primary" href="{{ url_for('views.home') }}" role="button" style="margin-left:auto;margin-right:auto;">Go to Homepage</a>
+</div>
+{% endblock%}
