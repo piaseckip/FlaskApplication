@@ -5,7 +5,7 @@ import os
 
 views = Blueprint('views',__name__)
 
-client = MongoClient('mongodb://mongodb:27017/')
+client = MongoClient('mongodb://root:pass@mongo-mongodb-headless:27017/')
 db = client.flask_db
 techs = db.techs
 
