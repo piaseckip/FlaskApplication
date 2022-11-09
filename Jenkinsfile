@@ -28,17 +28,17 @@ pipeline{
             }
         }
 
-        stage('Test'){
-            when{
-                anyOf{
-                    branch "master"
-                }
-            }
-            steps{
-                sleep 10
-                sh "curl -i localhost:5001 | grep 200"
-            }
-        }
+        // stage('Test'){
+        //     when{
+        //         anyOf{
+        //             branch "master"
+        //         }
+        //     }
+        //     steps{
+        //         sleep 10
+        //         sh "curl -i localhost:5001 | grep 200"
+        //     }
+        // }
         // stage('Create image'){
         //     when{
         //         anyOf{
