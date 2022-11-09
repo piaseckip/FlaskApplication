@@ -4,6 +4,7 @@ services:
   flask:
     build:
       context: Flask/.
+    image: 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest
     container_name: flask
     # ports:
     # - 5000:5000
@@ -20,6 +21,7 @@ services:
   nginx:
     build:
       context: Nginx/.
+    image: 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest
     container_name: nginx
     ports:
     - 80:80
