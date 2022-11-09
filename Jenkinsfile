@@ -35,6 +35,7 @@ pipeline{
                 }
             }
             steps{
+                sleep 10
                 sh "curl -i localhost:5001 | grep 200"
             }
         }
