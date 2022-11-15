@@ -6,3 +6,4 @@ requests
 cryptography
 pymongo
 flask_pymongo
+waitress
