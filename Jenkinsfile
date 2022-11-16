@@ -28,28 +28,54 @@ pipeline{
             }
         }
 
-        stage('Test'){
+        stage('Unit and Static Tests'){
             when{
                 anyOf{
                     branch "master"
                 }
             }
             steps{
+
                 sleep 10
+
                 sh "curl -i localhost:5000 | grep 200"
+
+                sh "curl -i localhost:5001 | grep 200"
             }
         }
-        // stage('Create image'){
-        //     when{
-        //         anyOf{
-        //             branch "master"
-        //         }
-        //     }
-        //     steps{
-        //         sh "dokcer image ls"
-        //         sh "dokcer commit nginx"
-        //     }
-        // }
+
+        stage('Package'){
+            when{
+                anyOf{
+                    branch "master"
+                }
+            }
+            steps{
+                sh "echo package"
+            }
+        }
+
+        stage('E2E test'){
+            when{
+                anyOf{
+                    branch "master"
+                }
+            }
+            steps{
+                sh "echo test"
+            }
+        }
+
+        stage('Publish'){
+            when{
+                anyOf{
+                    branch "master"
+                }
+            }
+            steps{
+                sh "echo publish"
+            }
+        }
         
         stage('Deploy'){
             when{
