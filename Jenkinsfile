@@ -1,5 +1,4 @@
 pipeline{
-
     options {
         timestamps()
     }
