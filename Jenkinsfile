@@ -28,7 +28,7 @@ pipeline{
                         TAGGING = "true"
                     }
                     else {
-                        sh "No version"
+                        echo "No version"
                     }
                 }
             }
