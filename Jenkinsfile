@@ -17,12 +17,12 @@ pipeline{
                     CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
                     sh "echo ${CMSG}"
 
-                    def matcher = ("${CMSG}" =~ /^[0-9]+.[0-9]+/ )
-                    
-                    if (matcher){
+                    CMSG.matches( /^[0-9]+.[0-9]+/)
+            
+                    if (CMSG.matches( /^[0-9]+.[0-9]+/)){
                         sh "echo ${CMSG}"
                         sh "echo IF"
-                        VERSION = matcher[0]
+                        VERSION = sh(returnStdout: true, script: "echo ${CMSG} | cut -d ' ' -f1").trim()
                         sh "echo wersja"
                         sh " echo ${VERSION}"
                         TAGGING = "true"
