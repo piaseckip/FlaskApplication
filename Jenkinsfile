@@ -13,12 +13,13 @@ pipeline{
                 withCredentials([string(credentialsId: 'api_token', variable: 'TOKEN')]) { 
                     sh "git fetch http://jenkins:$TOKEN@35.178.81.143/piaseckip/FlaskApplication --tags"
                 }
-                CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                if ("${CMSG}".contains('^[0-9]+.[0-9]')){
-                    sh "echo ${CMSG}"
-                    TAGGING = true
+                script {
+                    CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                    if ("${CMSG}".contains('^[0-9]+.[0-9]')){
+                        sh "echo ${CMSG}"
+                        TAGGING = true
+                    }
                 }
-
             }
         }
 
