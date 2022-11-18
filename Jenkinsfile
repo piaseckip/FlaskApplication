@@ -41,6 +41,8 @@ pipeline{
                     BRANCH = env.BRANCH_NAME
                 
                     VERSION = sh(returnStdout: true, script: "echo '${COMMIT_MESSAGE}' | cut -d ' ' -f1").trim()
+                    echo "Old tag:"
+                    echo "${VERSION}"
                     
                     try {
                         LAST_TAG = sh(returnStdout: true, script: "git tag | sort -V | grep '${VERSION}' | tail -1 | cut -d '.' -f3").trim()
@@ -55,19 +57,25 @@ pipeline{
                     }
 
                     VERSION = "${VERSION}.${NEW_TAG}"
-                    echo "nowy tag"
+                    echo "New tag:"
                     echo "${VERSION}"
                 } 
             }    
         }             
         
         stage('Build'){
+            when{
+                    branch "master"
+            }
             steps{
                 sh "docker-compose up --build -d"
             }
         }
 
         stage('Unit and Static Tests'){
+            when{
+                    branch "master"
+            }
             steps{
                 sleep 10
 
@@ -78,6 +86,9 @@ pipeline{
         }
 
         stage('Package'){
+            when{
+                    branch "master"
+            }
             steps{
                 sh "echo package"
             }
@@ -86,7 +97,7 @@ pipeline{
         stage('E2E test'){
             when{
                     branch "master"
-                }
+            }
             
             steps{
                 sh "echo test"
@@ -95,10 +106,9 @@ pipeline{
 
         stage('Publish'){
             when{
-                anyOf{
                     branch "master"
-                }
             }
+
             steps{
                 sh "echo publish"
             }
