@@ -1,5 +1,5 @@
 pipeline{
-    
+
     options {
         timestamps()
     }
@@ -16,8 +16,10 @@ pipeline{
                 }
                 script {
                     CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                    sh "echo ${CMSG}"
                     if ("${CMSG}".contains('^[0-9]+.[0-9]')){
                         sh "echo ${CMSG}"
+                        sh "echo IF"
                         TAGGING = true
                     }
                 }
