@@ -20,7 +20,7 @@ pipeline{
                     if ("${CMSG}".contains('^[0-9]+.[0-9]')){
                         sh "echo ${CMSG}"
                         sh "echo IF"
-                        TAGGING = true
+                        TAGGING = "true"
                     }
                 }
             }
@@ -28,7 +28,7 @@ pipeline{
 
         // stage ('Calculate tag'){
         //     when {
-        //         expression { TAGGING == true}
+        //         expression { TAGGING == "true"}
         //     }
         //     steps{
         //         script {
@@ -63,9 +63,9 @@ pipeline{
             steps{
                 sleep 10
 
-                sh "curl -i localhost:5000 | grep 200"
+                sh "curl -i 35.178.81.143:5000 | grep 200"
 
-                sh "curl -i localhost:5001 | grep 200"
+                sh "curl -i 35.178.81.143:5001 | grep 200"
             }
         }
 
