@@ -22,9 +22,9 @@ pipeline{
                     if (matcher){
                         echo "${COMMIT_MESSAGE}"
                         echo "IF"
-                        VERSION = sh(returnStdout: true, script: "echo '${COMMIT_MESSAGE}' | cut -d ' ' -f1").trim()
+                        // VERSION = sh(returnStdout: true, script: "echo '${COMMIT_MESSAGE}' | cut -d ' ' -f1").trim()
                         echo "wersja"
-                        echo "${VERSION}"
+                        // echo "${VERSION}"
                         TAGGING = "true"
                     }
                     else {
@@ -34,34 +34,34 @@ pipeline{
             }
         }
 
-        stage ('Calculate tag'){
-            when {
-                expression { TAGGING == "true"}
-            }
-            steps{
-                script {
-                    BRANCH = env.BRANCH_NAME
+        // stage ('Calculate tag'){
+        //     when {
+        //         expression { TAGGING == "true"}
+        //     }
+        //     steps{
+        //         script {
+        //             BRANCH = env.BRANCH_NAME
                 
-                    VERSION = sh(returnStdout: true, script: "echo '${BRANCH}' | cut -d '/' -f2 ").trim()
+        //             VERSION = sh(returnStdout: true, script: "echo '${BRANCH}' | cut -d '/' -f2 ").trim()
                     
-                    try {
-                        LAST_TAG = sh(returnStdout: true, script: "git tag | sort -V | grep '${VERSION}' | tail -1 | cut -d '.' -f3").trim()
+        //             try {
+        //                 LAST_TAG = sh(returnStdout: true, script: "git tag | sort -V | grep '${VERSION}' | tail -1 | cut -d '.' -f3").trim()
 
-                        NEW_TAG = "${LAST_TAG}" as int
+        //                 NEW_TAG = "${LAST_TAG}" as int
 
-                        NEW_TAG = NEW_TAG + 1
-                    }
+        //                 NEW_TAG = NEW_TAG + 1
+        //             }
 
-                    catch (Exception e) {
-                        NEW_TAG = 0
-                    }
+        //             catch (Exception e) {
+        //                 NEW_TAG = 0
+        //             }
 
-                    VERSION = "${VERSION}.${NEW_TAG}"
-                    echo "nowy tag"
-                    echo "${VERSION}"
-                } 
-            }    
-        }             
+        //             VERSION = "${VERSION}.${NEW_TAG}"
+        //             echo "nowy tag"
+        //             echo "${VERSION}"
+        //         } 
+        //     }    
+        // }             
         
         stage('Build'){
             steps{
