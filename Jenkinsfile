@@ -14,15 +14,15 @@ pipeline{
                     sh "git fetch http://jenkins:$TOKEN@35.178.81.143/piaseckip/FlaskApplication --tags"
                 }
                 script {
-                    CMSG = sh(returnStdout: true, script: 'git log --pretty=%B | head -1').trim()
-                    echo "${CMSG}"
+                    COMMIT_MESSAGE = sh(returnStdout: true, script: 'git log --pretty=%B | head -1').trim()
+                    echo "${COMMIT_MESSAGE}"
 
-                    def matcher = "${CMSG}" =~ /^[0-9]+.[0-9]+/
+                    def matcher = "${COMMIT_MESSAGE}" =~ /^[0-9]+.[0-9]+/
                     
                     if (matcher){
-                        echo "${CMSG}"
+                        echo "${COMMIT_MESSAGE}"
                         echo "IF"
-                        VERSION = matcher[0]
+                        VERSION = sh(returnStdout: true, script: "echo '${COMMIT_MESSAGE}' | cut -d ' ' -f2").trim()
                         echo wersja
                         echo "${VERSION}"
                         TAGGING = "true"
@@ -34,32 +34,34 @@ pipeline{
             }
         }
 
-        // stage ('Calculate tag'){
-        //     when {
-        //         expression { TAGGING == "true"}
-        //     }
-        //     steps{
-        //         script {
-        //             BRANCH = env.BRANCH_NAME
+        stage ('Calculate tag'){
+            when {
+                expression { TAGGING == "true"}
+            }
+            steps{
+                script {
+                    BRANCH = env.BRANCH_NAME
                 
-        //             VERSION = sh(returnStdout: true, script: "echo '${BRANCH}' | cut -d '/' -f2 ").trim()
+                    VERSION = sh(returnStdout: true, script: "echo '${BRANCH}' | cut -d '/' -f2 ").trim()
                     
-        //             try {
-        //                 LAST_TAG = sh(returnStdout: true, script: "git tag | sort -V | grep '${VERSION}' | tail -1 | cut -d '.' -f3").trim()
+                    try {
+                        LAST_TAG = sh(returnStdout: true, script: "git tag | sort -V | grep '${VERSION}' | tail -1 | cut -d '.' -f3").trim()
 
-        //                 NEW_TAG = "${LAST_TAG}" as int
+                        NEW_TAG = "${LAST_TAG}" as int
 
-        //                 NEW_TAG = NEW_TAG + 1
-        //             }
+                        NEW_TAG = NEW_TAG + 1
+                    }
 
-        //             catch (Exception e) {
-        //                 NEW_TAG = 0
-        //             }
+                    catch (Exception e) {
+                        NEW_TAG = 0
+                    }
 
-        //             VERSION = "${VERSION}.${NEW_TAG}"
-        //         } 
-        //     }    
-        // }             
+                    VERSION = "${VERSION}.${NEW_TAG}"
+                    echo "nowy tag"
+                    echo "${VERSION}"
+                } 
+            }    
+        }             
         
         stage('Build'){
             steps{
