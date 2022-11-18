@@ -34,7 +34,10 @@ pipeline{
 
         stage ('Calculate tag'){
             when {
-                expression { TAGGING == "true"}
+                allOf{
+                    expression { TAGGING == "true"}
+                    branch "master"
+                }
             }
             steps{
                 script {
@@ -126,10 +129,13 @@ pipeline{
                 sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest"
             }
         }
-        
+
         stage('Tagging'){
             when {
-                expression { TAGGING == "true"}
+                allOf{
+                    expression { TAGGING == "true"}
+                    branch "master"
+                }
             }
 
             steps{
