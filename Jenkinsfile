@@ -25,6 +25,7 @@ pipeline{
                     }
                     else {
                         echo "No version provided"
+                        TAGGING = "false"
                     }
                 }
             }
