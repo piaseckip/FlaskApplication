@@ -114,7 +114,7 @@ pipeline{
                 sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest"
 
                 sh "git clean -f -x"
-                sh "git tag '${VERSION}.${NEW_TAG}'"
+                sh "git tag '${VERSION}'"
                 withCredentials([string(credentialsId: 'api_token', variable: 'TOKEN')]) { 
                     sh "git push http://jenkins:$TOKEN@35.178.81.143/piaseckip/FlaskApplication --tags"
                 }
