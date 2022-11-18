@@ -22,7 +22,7 @@ pipeline{
                     if (matcher){
                         echo "${COMMIT_MESSAGE}"
                         echo "IF"
-                        VERSION = sh(returnStdout: true, script: "echo '${COMMIT_MESSAGE}' | cut -d ' ' -f2").trim()
+                        VERSION = sh(returnStdout: true, script: "echo '${COMMIT_MESSAGE}' | cut -d ' ' -f1").trim()
                         echo "wersja"
                         echo "${VERSION}"
                         TAGGING = "true"
