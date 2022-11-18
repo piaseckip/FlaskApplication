@@ -124,13 +124,20 @@ pipeline{
                 sh "aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
                 sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest"
                 sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest"
+            }
+        }
+        
+        stage('Tagging'){
+            when {
+                expression { TAGGING == "true"}
+            }
 
+            steps{
                 sh "git clean -f -x"
                 sh "git tag '${VERSION}'"
                 withCredentials([string(credentialsId: 'api_token', variable: 'TOKEN')]) { 
                     sh "git push http://jenkins:$TOKEN@35.178.81.143/piaseckip/FlaskApplication --tags"
                 }
-
             }
         }
 
