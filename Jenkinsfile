@@ -14,9 +14,9 @@ pipeline{
                     sh "git fetch http://jenkins:$TOKEN@35.178.81.143/piaseckip/FlaskApplication --tags"
                 }
                 script {
-                    CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
-                    sh "echo ${CMSG}"
-                    def matcher = "${CMSG}" =~ "/^[0-9]+.[0-9]+/"
+                    env.CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                    sh "echo ${env.CMSG}"
+                    def matcher = "${env.CMSG}" =~ /^[0-9]+.[0-9]+/
                     if (matcher){
                         sh "echo ${CMSG}"
                         sh "echo IF"
