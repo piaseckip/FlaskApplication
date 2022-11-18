@@ -13,29 +13,48 @@ pipeline{
                 withCredentials([string(credentialsId: 'api_token', variable: 'TOKEN')]) { 
                     sh "git fetch http://jenkins:$TOKEN@35.178.81.143/piaseckip/FlaskApplication --tags"
                 }
+                CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
+                if ("${CMSG}".contains('\d\.\d')){
+                    sh "echo ${CMSG}"  
+                }
 
             }
-        }               
+        }
+
+        // stage ('Calculate tag'){
+        //     when {
+        //         branch "master"
+        //     }
+        //     steps{
+        //         script {
+        //             BRANCH = env.BRANCH_NAME
+                
+        //             VERSION = sh(returnStdout: true, script: "echo '${BRANCH}' | cut -d '/' -f2 ").trim()
+                    
+        //             try {
+        //                 LAST_TAG = sh(returnStdout: true, script: "git tag | sort -V | grep '${VERSION}' | tail -1 | cut -d '.' -f3").trim()
+
+        //                 NEW_TAG = "${LAST_TAG}" as int
+
+        //                 NEW_TAG = NEW_TAG + 1
+        //             }
+
+        //             catch (Exception e) {
+        //                 NEW_TAG = 0
+        //             }
+
+        //             VERSION = "${VERSION}.${NEW_TAG}"
+        //         } 
+        // }             
         
         stage('Build'){
-            when{
-                anyOf{
-                    branch "master"
-                }
-            }
             steps{
                 sh "docker-compose up --build -d"
             }
         }
 
         stage('Unit and Static Tests'){
-            when{
-                anyOf{
-                    branch "master"
-                }
-            }
             steps{
-
                 sleep 10
 
                 sh "curl -i localhost:5000 | grep 200"
@@ -45,11 +64,6 @@ pipeline{
         }
 
         stage('Package'){
-            when{
-                anyOf{
-                    branch "master"
-                }
-            }
             steps{
                 sh "echo package"
             }
@@ -57,7 +71,6 @@ pipeline{
 
         stage('E2E test'){
             when{
-                anyOf{
                     branch "master"
                 }
             }
