@@ -15,7 +15,8 @@ pipeline{
                 }
                 CMSG = sh(returnStdout: true, script: 'git log -1 --pretty=%B').trim()
                 if ("${CMSG}".contains('^[0-9]+.[0-9]')){
-                    sh "echo ${CMSG}"  
+                    sh "echo ${CMSG}"
+                    TAGGING = true
                 }
 
             }
@@ -23,7 +24,7 @@ pipeline{
 
         // stage ('Calculate tag'){
         //     when {
-        //         branch "master"
+        //         expression { TAGGING == true}
         //     }
         //     steps{
         //         script {
@@ -45,6 +46,7 @@ pipeline{
 
         //             VERSION = "${VERSION}.${NEW_TAG}"
         //         } 
+        //     }    
         // }             
         
         stage('Build'){
@@ -73,7 +75,7 @@ pipeline{
             when{
                     branch "master"
                 }
-            }
+            
             steps{
                 sh "echo test"
             }
