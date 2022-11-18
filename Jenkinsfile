@@ -103,7 +103,7 @@ pipeline{
             }
             
             steps{
-                sh "echo test"
+                sh "echo  e2e_test"
             }
         }
 
@@ -113,7 +113,9 @@ pipeline{
             }
 
             steps{
-                sh "echo publish"
+                sh "aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
+                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest"
+                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest"
             }
         }
         
@@ -124,9 +126,7 @@ pipeline{
                 }
             }
             steps{
-                sh "aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
-                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest"
-                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest"
+                sh "echo deploy"
             }
         }
 
