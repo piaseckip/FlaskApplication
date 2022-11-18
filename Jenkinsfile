@@ -30,6 +30,7 @@ pipeline{
             }
         }
 
+
         stage ('Calculate tag'){
             when {
                 expression { TAGGING == "true"}
