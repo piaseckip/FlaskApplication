@@ -1,4 +1,4 @@
-pushd chess-openings-helmcharts
+pushd Portfolio_App_repo
 export VERSION=$1
 yq -i '.image.tag = strenv(VERSION)' ./app/values.yaml
 yq -i '.image.tag = strenv(VERSION)' ./app/charts/flask-app/values.yaml
