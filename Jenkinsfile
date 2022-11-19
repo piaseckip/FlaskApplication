@@ -108,11 +108,12 @@ pipeline{
         }
 
         stage('Publish'){
-            allOf{
-                    expression { TAGGING == "true"}
-                    branch "master"
-                }
-
+            when{
+                allOf{
+                        expression { TAGGING == "true"}
+                        branch "master"
+                    }
+            }
             steps{
                 sh "docker tag 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:${VERSION}"
                 sh "docker tag 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:${VERSION}"
