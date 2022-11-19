@@ -113,9 +113,11 @@ pipeline{
             }
 
             steps{
+                sh "docker tag 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:${VERSION}"
+                sh "docker tag 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:${VERSION}"
                 sh "aws ecr get-login-password --region eu-west-3 | docker login --username AWS --password-stdin 644435390668.dkr.ecr.eu-west-3.amazonaws.com"
-                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest"
-                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:latest"
+                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:${VERSION}"
+                sh "docker push 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_flask_app:${VERSION}"
             }
         }
         
@@ -126,7 +128,14 @@ pipeline{
                 }
             }
             steps{
-                sh "echo deploy"
+                script {
+                    sleep 10
+                    sh "aws eks --region eu-west-3 update-kubeconfig --name Piotr_Piasecki_EKS"
+                    sh "git clone http://35.178.81.143/piaseckip/Portfolio_App_repo.git"
+                    withCredentials([string(credentialsId: 'api_token', variable: 'TOKEN')]) { 
+                        sh "bash patch.sh ${VERSION} ${TOKEN}"
+                    }
+                }
             }
         }
 
