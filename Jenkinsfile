@@ -123,7 +123,8 @@ pipeline{
         
         stage('Deploy'){
             when{
-                anyOf{
+                allOf{
+                    expression { TAGGING == "true"}
                     branch "master"
                 }
             }
