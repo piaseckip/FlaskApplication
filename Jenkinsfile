@@ -108,9 +108,10 @@ pipeline{
         }
 
         stage('Publish'){
-            when{
+            allOf{
+                    expression { TAGGING == "true"}
                     branch "master"
-            }
+                }
 
             steps{
                 sh "docker tag 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:latest 644435390668.dkr.ecr.eu-west-3.amazonaws.com/pp_nginx:${VERSION}"
