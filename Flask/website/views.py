@@ -2,6 +2,10 @@ from flask import Blueprint,redirect,url_for,render_template,request,send_from_d
 from flask_pymongo import PyMongo, ObjectId
 from pymongo import MongoClient
 import os
+import prometheus_client
+from prometheus_client.core import CollectorRegistry
+from prometheus_client import Summary, Counter, Histogram, Gauge
+import time
 
 views = Blueprint('views',__name__)
 MONGODB_URI = os.environ.get("MONGODB_URI")
@@ -9,8 +13,21 @@ client = MongoClient(str(MONGODB_URI))
 db = client.flask_db
 techs = db.techs
 
+_INF = float("inf")
+
+graphs = {}
+graphs['c'] = Counter('python_request_operations_total', 'The total number of processed requests')
+graphs['h'] = Histogram('python_request_duration_seconds', 'Histogram for the duration in seconds.', buckets=(1, 2, 5, 6, 10, _INF))
+
+
 @views.route('/favicon.ico')
 def favicon():
+    start = time.time()
+    graphs['c'].inc()
+    
+    time.sleep(0.600)
+    end = time.time()
+    graphs['h'].observe(end - start)
     return send_from_directory(os.path.join(views.root_path, 'static'),'favicon.ico', mimetype='image/vnd.microsoft.icon')
     
 @views.route('/', methods=["GET"])
@@ -108,3 +125,10 @@ def tech():
     descr=request.args['des']
     image=request.args['img']
     return render_template("tech.html", h=title,des=descr,img=image)
+
+@views.route("/metrics")
+def requests_count():
+    res = []
+    for k,v in graphs.items():
+        res.append(prometheus_client.generate_latest(v))
+    return Response(res, mimetype="text/plain")
