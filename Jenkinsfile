@@ -162,5 +162,18 @@ pipeline{
 
     
     }
+
+    post{
+        failure{
+            emailext recipientProviders: [culprits()],
+                 subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS',
+                 attachLog: true
+        }
+        success{
+            emailext recipientProviders: [culprits()],
+                 subject: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS!', body: '$PROJECT_NAME - Build # $BUILD_NUMBER - $BUILD_STATUS',
+                 attachLog: true
+        }
+    }
     
 }
