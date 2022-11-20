@@ -8,3 +8,4 @@ pymongo
 flask_pymongo
 waitress
 prometheus_client
+pytest
