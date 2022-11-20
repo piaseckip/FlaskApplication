@@ -103,7 +103,7 @@ pipeline{
             }
             
             steps{
-                sh "echo  e2e_test"
+                sh "docker exec flask pytest e2e_test.py"
             }
         }
 
