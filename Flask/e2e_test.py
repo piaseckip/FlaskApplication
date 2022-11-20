@@ -30,13 +30,13 @@ def test_home(client):
     response = client.get("/")
     assert b"Welcome" in response.data
     
-def test_adding(client):
+def test_adding(self):
     with self.app() as client, self.app_context():
         form_data = {'tech_name': 'test_adding', 'tech_descr': 'test', "image_link":'test' }
     response = client.post("/adding",data=json.dumps(form_data))
     self.assertEqual('succesfully ',response.data) 
 
-def test_deleting(client):
+def test_deleting(self):
     with self.app() as client, self.app_context():
         form_data = {'tech_name': 'test_adding'}
     response = client.post("/deleting",data=json.dumps(form_data))
