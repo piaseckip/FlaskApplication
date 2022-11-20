@@ -4,6 +4,7 @@ import os
 import sys
 import pytest
 import requests
+import json
 
 @pytest.fixture()
 def app():
@@ -30,16 +31,14 @@ def test_home(client):
     assert b"Welcome" in response.data
     
 def test_adding(client):
-    url = url_for("views.adding")
-    form_data = {'tech_name': 'test_adding', 'tech_descr': 'test', "image_link":'test' }
-    requests.post(url, data=form_data)
-    response = client.get("/")
-    assert b"test_adding" in response.data
+    with self.app() as client, self.app_context():
+        form_data = {'tech_name': 'test_adding', 'tech_descr': 'test', "image_link":'test' }
+    response = client.post("/adding",data=json.dumps(form_data))
+    self.assertEqual('succesfully ',response.data) 
 
 def test_deleting(client):
-    url = url_for("views.deleting")
-    form_data = {'tech_name': 'test_adding'}
-    requests.post(url, data=form_data)
-    response = client.get("/")
-    assert b"test_adding" in response.data   
+    with self.app() as client, self.app_context():
+        form_data = {'tech_name': 'test_adding'}
+    response = client.post("/deleting",data=json.dumps(form_data))
+    self.assertEqual('succesfully',response.data)   
     
