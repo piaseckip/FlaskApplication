@@ -23,11 +23,11 @@ def app():
 
 
 @pytest.fixture()
-def client(app):
+def self(app):
     return app.test_client()
 
-def test_home(client):
-    response = client.get("/")
+def test_home(self):
+    response = self.get("/")
     assert b"Welcome" in response.data
     
 def test_adding(self):
