@@ -1,4 +1,5 @@
 from website import create_app
+from flask import url_for
 import os 
 import sys
 import pytest
@@ -29,14 +30,14 @@ def test_home(client):
     assert b"Welcome" in response.data
     
 def test_adding(client):
-    url = 'localhost:5000/adding'
+    url = url_for("views.adding")
     form_data = {'tech_name': 'test_adding', 'tech_descr': 'test', "image_link":'test' }
     requests.post(url, data=form_data)
     response = client.get("/")
     assert b"test_adding" in response.data
 
 def test_deleting(client):
-    url = 'localhost:5000/deleting'
+    url = url_for("views.deleting")
     form_data = {'tech_name': 'test_adding'}
     requests.post(url, data=form_data)
     response = client.get("/")
