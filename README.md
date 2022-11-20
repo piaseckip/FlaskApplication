@@ -1,7 +1,6 @@
 
 <h2 align="center">Piotr Piasecki Portfolio</h2>
 
-
 ---
 <p align="center"> Application where you can show tech stack that you are using.
     <br> 
@@ -35,39 +34,21 @@ To run the project u will need:
 
 To run application locally, just type command in terminal:
 
-
 ```
 docker-compose --build -d
 ```
 
-
 ##  Running the tests 
 
-Explain how to run the automated tests for this system.
-
-### Break down into end to end tests
-
-Explain what these tests test and why
+Tests are checking basic endpoints of the app - home, adding and deleting.
 
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+docker exec flask python e2e_test.py
 ```
 
 ##  Usage 
 
 In the application u can add,edit and delete informationa about your tech stack.
-
-##  Deployment 
-
-Add additional notes about how to deploy this on a live system.
 
 ##  Built Using 
 -  Nginx - HTTP server
