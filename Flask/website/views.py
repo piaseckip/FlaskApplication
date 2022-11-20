@@ -63,7 +63,7 @@ def home():
     if elem_count <= 4:
         row_count = 1
     elif elem_count > 4 and elem_count % 4 == 0:
-        row_count = elem_count / 4
+        row_count = int(elem_count / 4)
     else:
         row_count = (elem_count // 4) + 1
 
