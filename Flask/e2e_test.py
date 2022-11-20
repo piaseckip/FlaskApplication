@@ -32,11 +32,11 @@ def test_home(client):
     
 def test_adding(client):
     form_data = {'tech_name': 'test_adding', 'tech_descr': 'test', "image_link":'test' }
-    response = client.post("/adding",data=json.dumps(form_data))
+    response = client.post("/adding",data=form_data)
     assert b"succesfully" in response.data
 
 def test_deleting(client):
     form_data = {'tech_name': 'test_adding'}
-    response = client.post("/deleting",data=json.dumps(form_data))
+    response = client.post("/deleting",data=form_data)
     assert b"succesfully" in response.data   
     
