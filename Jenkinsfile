@@ -133,8 +133,7 @@ pipeline{
             steps{
                 script {
                     sleep 10
-                    sh "aws eks --region eu-west-3 update-kubeconfig --name Piotr_Piasecki_EKS"
-                    
+
                     withCredentials([string(credentialsId: 'api_token', variable: 'TOKEN')]) {
                         sh "git clone http://jenkins:$TOKEN@35.178.81.143/piaseckip/Portfolio_App_repo.git"
                         sh "bash patch.sh ${VERSION} ${TOKEN}"
